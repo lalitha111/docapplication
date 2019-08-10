@@ -1,0 +1,37 @@
+
+
+<div>
+        <!-- A grey horizontal navbar that becomes vertical on small screens -->
+      <nav class="navbar navbar-expand-sm bg-dark">
+          
+        <!-- Links -->
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a routerLink="/patientdashboard/profile" class="nav-link text-white">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/patientdashboard/viewdoctors" class="nav-link text-white">View Doctors</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/patientdashboard/mybookings/" class="nav-link text-white">My Bookings</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/patientdashboard/makepayment" class="nav-link text-white">Make Payments</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/patientdashboard/paymenthistory" class="nav-link text-white">Payment History</a>
+          </li>
+          <li class="nav-item">
+                <button type="submit" class="nav-link btn btn-info mr-3" (click)="logout()">Logout</button>
+          </li>
+          
+          
+          
+          
+        </ul>
+      </nav>
+      <router-outlet></router-outlet>
+        </div>
+      
+    
+    

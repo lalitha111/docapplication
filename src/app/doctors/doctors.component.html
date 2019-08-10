@@ -1,0 +1,37 @@
+<div class="container mt-5">
+
+        <div class="table-responsive">
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                            <input class="float-right mb-3" type="text" name="search" class="text-center form-control mb-3" id="" placeholder="search by Name/ Area/ Specialization" [(ngModel)]='searchterm'>
+                    </div>
+                    <div class="col-md-3"></div>
+                </div>
+        <table class="table">
+                
+            <thead class="bg-info text-white">
+                <th>Doctor Name</th>
+                <th>Email</th>
+                <th>Exp</th>
+                <th>Spec</th>
+                <th>Area</th>
+                
+            </thead>
+        
+        <tr *ngFor="let obj of list | search:searchterm">
+                       
+                    <td>{{obj.name}}</td>
+                    <td>{{obj.email}}</td>
+                    <td>{{obj.experience}}</td>
+                    <td>{{obj.specialization}}</td>
+                    <td>{{obj.area}}</td>
+  
+        
+                    
+               
+            </tr>
+        
+        </table>
+        </div>
+        </div>

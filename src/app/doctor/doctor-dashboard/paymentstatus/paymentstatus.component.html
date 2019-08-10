@@ -1,0 +1,25 @@
+<div class="container mt-5">
+   
+<table class="table table-bordered">
+    <thead class="bg-info text-white">
+        <th>patient name</th>
+        <th>account number</th>
+        <th>address</th>
+        <th>amount</th>
+        <th>date</th>
+        <th>ifsccode</th> 
+        <th>Payment Status</th>
+        
+    </thead>
+    <tr *ngFor="let pay of paymentData">
+        <td>{{pay.patientname}}</td>
+        <td>{{pay.accountnumber}}</td>
+        <td>{{pay.address}}</td>
+        <td>{{pay.amount}}</td>
+        <td>{{pay.date}}</td>
+        <td>{{pay.ifsccode}}</td>
+        <td>{{pay.paystatus}}</td>
+
+    </tr>
+</table>
+</div>

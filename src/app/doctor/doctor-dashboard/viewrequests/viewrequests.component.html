@@ -1,0 +1,28 @@
+<div class="container mt-5">
+    <table class="table table-bordered">
+        <thead class="bg-info text-white">
+            <th>patient name</th>
+            <th>Email Id</th>
+            <th>Mobile No</th>
+            <th>Area</th>
+            <th>Appointment Date</th>
+            <th>Appointment Time</th>
+            <th>Status</th>
+        </thead>
+        <tr *ngFor="let obj of patients">
+            <td>{{obj.patientname}}</td>
+            <td>{{obj.patientemail}}</td>
+            <td>{{obj.patientnumber}}</td>
+            <td>{{obj.patientarea}}</td>
+            <td><input type="date" name="appdate" class="form-control" #ref></td>
+            <td><input type="time" name="apptime" class="form-control" #ref1></td>
+            
+            <td>
+                <div *ngIf="obj != undefined ">
+                    <button type="submit" class="btn btn-primary" (click)=accept(obj,ref.value,ref1.value)>accept</button>
+                    <button type="submit" class="btn btn-danger ml-1" (click)=reject(obj)>reject</button>
+                </div>
+            </td>
+        </tr>
+    </table>
+    </div>

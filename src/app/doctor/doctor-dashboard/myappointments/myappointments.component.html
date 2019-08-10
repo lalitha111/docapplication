@@ -1,0 +1,30 @@
+<div class="container mt-5">
+
+        <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead class="bg-info text-white">
+                <th>Patient Name</th>
+                <th>Appointment Date</th>
+                <th>Appointment Time</th>
+                <th>Email</th>
+                
+                <th>Mobile Number</th>
+                <th>Area</th>
+                
+            </thead>
+        
+        <tr *ngFor="let obj of bookings">
+                       
+                    <td>{{obj.patientname}}</td>
+                    <td>{{obj.appdate}}</td>
+                    <td>{{obj.apptime}}</td>
+                    <td>{{obj.patientemail}}</td>
+                    <td>{{obj.patientnumber}}</td>
+                    <td>{{obj.patientarea}}</td>
+    
+                    
+            </tr>
+        
+        </table>
+        </div>
+        </div>

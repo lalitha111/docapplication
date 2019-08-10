@@ -1,0 +1,50 @@
+<div>
+    <!-- A grey horizontal navbar that becomes vertical on small screens -->
+  <nav class="navbar navbar-expand-sm bg-dark">
+      <a class="navbar-brand" routerLink="home">
+          <img src="assets/logo.png" alt="Logo" style="width:60px;height: 40px;"><label class="text-white pl-2 h3">Book My Doctor</label>
+      </a>
+    <!-- Links -->
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a routerLink="home" class="nav-link text-white">Home</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="doctors" class="nav-link text-white">Doctors</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="aboutus" class="nav-link text-white">About Us</a>
+      </li>
+      <li class="nav-item">
+          <a routerLink="contactus" class="nav-link text-white">Contact Us</a>
+        </li>
+      <!--<li class="nav-item">
+        <a routerLink="patientsdashboard" class="nav-link text-white">Patients Dashboard</a>
+      </li>-->
+      <!--<li class="nav-item">
+          <a routerLink="doctorsdashboard" class="nav-link text-white">Doctors Dashboard</a>
+      </li>-->
+      
+      <!--<li class="nav-item">
+        <a routerLink="login" class="nav-link btn btn-info mr-3" *ngIf=ls.isLoggedin >
+          <i class="fa fa-lock" style="margin-right: 10px;"></i>Logout
+        </a>
+      </li>-->
+      <li class="nav-item">
+        <a routerLink="register" class="nav-link btn btn-info">
+          <i class="fa fa-sign-in" style="margin-right: 10px;"></i>Register
+        </a>
+      </li>
+      <li class="nav-item">
+          <a routerLink="login" class="nav-link btn btn-info ml-3">
+            <i class="fa fa-lock" style="margin-right: 10px;"></i>Login
+          </a>
+        </li>
+      
+      
+    </ul>
+  </nav>
+  <router-outlet></router-outlet>
+    </div>
+  
+

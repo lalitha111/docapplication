@@ -1,0 +1,126 @@
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 bg-info">
+    
+    <div class="container">
+            <h3 class="text-center mt-3 mb-4">Patient Registration</h3>
+    <form #ref="ngForm" (ngSubmit)="patientReg(ref.value)">
+    <div class="form-group">
+        <label for="n">User Name</label>
+        <input type="text" name="name" id="n" #refname="ngModel" required minlength="5" class="form-control" ngModel>
+        <div *ngIf="refname.invalid&&(refname.dirty||refname.touched)" class="text-danger">
+            <div *ngIf="refname.errors.required">
+                <p>*UserName is required</p>
+            </div>
+            <div *ngIf="refname.errors.minlength">
+                <p>*Name must be atleast 4 chars long</p>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="n">Name</label>
+        <input type="text" name="puname" id="pun" #refpuname="ngModel" required minlength="5" class="form-control" ngModel>
+        <div *ngIf="refpuname.invalid&&(refpuname.dirty||refpuname.touched)" class="text-danger">
+            <div *ngIf="refpuname.errors.required">
+                <p>*Name is required</p>
+            </div>
+            <div *ngIf="refpuname.errors.minlength">
+                <p>*Name must be atleast 4 chars long</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="e">Email-Id</label>
+        <input type="email" name="email" id="e" class="form-control" #refemail="ngModel" required ngModel>
+        <div *ngIf="refemail.invalid&&(refemail.dirty||refemail.touched)" class="text-danger">
+            <div *ngIf="refemail.errors.required">
+                <p>*Email is required</p>
+            </div>
+        </div>
+    
+    </div>
+    <div class="form-group">
+        <label for="p">Password</label>
+        <input type="password" name="password" id="p" class="form-control" #refpwd="ngModel" required minlength="6" ngModel>
+        <div *ngIf="refpwd.invalid&&(refpwd.dirty||refpwd.touched)" class="text-danger">
+            <div *ngIf="refpwd.errors.required">
+                <p>*Password is required</p>
+            </div>
+            <div *ngIf="refpwd.errors.minlength">
+                <p>*Password must be atleast 6 chars long</p>
+            </div>
+        </div>
+    
+    </div>
+    <div class="form-group">
+            <label for="mn">Mobile Number</label>
+            <input type="text" name="mobileno" id="mn" class="form-control" #refnum="ngModel" required ngModel>
+            
+            <div *ngIf="refnum.invalid&&(refnum.dirty||refnum.touched)" class="text-danger">
+                <div *ngIf="refnum.errors.required">
+                    <p>Mobile Number is required</p>
+                    <p>max 10 characters 0-9</p>
+                </div>
+            </div>
+    </div>
+    <div class="form-group">
+        <label for="d">Date Of Birth</label>
+        <input type="date" name="date" id="d" class="form-control" ngModel>
+    </div> 
+    <div class="form-group">
+    <label for="">Gender</label>
+    <div class="form-check">
+        <label class="form-check-label" for="m">
+        <input type="radio" name="gender" id="m" value=male class="form-check-input" ngModel>Male
+    </label>
+    </div>
+    <div class="form-check">
+            <label class="form-check-label" for="f">
+            <input type="radio" name="gender" id="f" value=female class="form-check-input" ngModel>Female
+        </label>
+        </div>
+        <div class="form-check">
+                <label class="form-check-label" for="o">
+                <input type="radio" name="gender" id="o" value=others class="form-check-input" ngModel>Others
+            </label>
+            </div>
+    </div>
+    
+    <div class="form-group">
+    <label for="area">Area</label>
+    <div class="form-group">
+        <select name="area" id="area" #refarea="ngModel" class="form-control" required ngModel>
+            <option value="" disabled="disabled" selected>select</option>
+            <option value="Gachibowli">Gachibowli</option>
+                      <option value="Shamshabad">Shamshabad</option>
+                      <option value="Kukatpally">Kukatpally</option>
+                      <option value="Mallapur">Mallapur</option>
+                      <option value="Hi Tech City">Hi Tech City</option>
+                      <option value="Habsiguda">Habsiguda</option>
+                      <option value="Jubilee Hills">Jubilee Hills</option>
+                      <option value="Secunderabad">Secunderabad</option>
+                      <option value="Banjara Hills">Banjara Hills</option>
+                      <option value="Manikonda"> Manikonda</option>
+        </select>
+        <div *ngIf="refarea.invalid&&(refarea.dirty||refarea.touched)" class="text-danger">
+            <div *ngIf="refarea.errors.required">
+                <p>Area is required</p>
+            </div>
+        </div>
+    </div>
+    
+    </div>
+    <div class="text-center">
+    <button class="btn btn-success">Submit</button>
+    </div>
+    </form>
+    </div>
+    <div class="col-md-3"></div>
+    </div>
+    </div>
+    
+    
+

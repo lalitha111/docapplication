@@ -1,0 +1,22 @@
+<div class="container">
+    <h1 class="text-center">payments history</h1>
+<table class="table table-bordered">
+    <thead class="bg-info text-white">
+        <th>accountnumber</th>
+        <th>address</th>
+        <th>amount</th>
+        <th>date</th>
+        <th>ifsccode</th> 
+        <th>doctorname</th>
+    </thead>
+    <tr *ngFor="let pay of paymentData">
+        <td>{{pay.accountnumber}}</td>
+        <td>{{pay.address}}</td>
+        <td>{{pay.amount}}</td>
+        <td>{{pay.date}}</td>
+        <td>{{pay.ifsccode}}</td>
+        <td>{{pay.name}}</td>
+
+    </tr>
+</table>
+</div>

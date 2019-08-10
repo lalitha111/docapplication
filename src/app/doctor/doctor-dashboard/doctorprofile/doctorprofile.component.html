@@ -1,0 +1,105 @@
+<div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                    
+            </div>
+            <div class="col-md-6 mt-5">
+                    <div *ngIf="b">
+                        <div *ngFor="let currentUser of currentUser">
+                        <h2 class="text-center bg-info text-light">View Profile</h2>
+                    <table class="table table-bordered h6 ">
+                        <tr>
+                            <td>name</td>
+                            <td>{{currentUser.name}}</td>
+                        </tr>
+                        <tr>
+                            <td>dob</td>
+                            <td>{{currentUser.date}}</td>
+                        </tr>
+                        <tr>
+                            <td>mail</td>
+                            <td>{{currentUser.email}}</td>
+                        </tr>
+                        <tr>
+                            <td>phone</td>
+                            <td>{{currentUser.mobileno}}</td>
+                        </tr>
+                        <tr>
+                            <td>area</td>
+                            <td>{{currentUser.area}}</td>
+                        </tr>
+                        <tr>
+                            <td>specialization</td>
+                            <td>{{currentUser.specialization}}</td>
+                        </tr>
+                        <tr>
+                            <td>experience</td>
+                            <td>{{currentUser.experience}}</td>
+                        </tr>
+                        <tr>
+                            <td>timings</td>
+                            <td>{{currentUser.timings}}</td>
+                        </tr>
+                        <tr>
+                            <td>about</td>
+                            <td>{{currentUser.about}}</td>
+                        </tr>
+    
+                    </table>
+                    <button type="submit" class="btn btn-info d-block mx-auto" (click)="edit(currentUser)">Edit</button>
+                    </div>
+                </div>
+    
+    
+                    <div *ngIf="!b">
+                            <h2 class="text-center bg-info text-light">Edit Profile</h2>
+                            
+                        <form #ref="ngForm" (ngSubmit)="submitEditData(ref.value)">
+                                <table class="table table-bordered h6">
+                                        <tr>
+                                            <td>name</td>
+                                            <td><input type="text" name="name" id="" value="objectToUpdate.name" class="form-control" [(ngModel)]=objectToUpdate.name></td>
+                                        </tr>
+                                        <tr>
+                                            <td>dob</td>
+                                            <td><input type="text" name="date" value="objectToUpdate.date" class="form-control" [(ngModel)]=objectToUpdate.date></td>
+                                        </tr>
+                                        <tr>
+                                            <td>email</td>
+                                            <td><input type="text" name="email" value="objectToUpdate.email" class="form-control" [(ngModel)]=objectToUpdate.email></td>
+                                        </tr>
+                                        <tr>
+                                            <td>phone</td>
+                                            <td><input type="text" name="mobileno" value="objectToUpdate.mobileno" class="form-control" [(ngModel)]=objectToUpdate.mobileno></td>
+                                        </tr>
+                                        <tr>
+                                            <td>area</td>
+                                            <td><input type="text" name="area" value="objectToUpdate.area" class="form-control" [(ngModel)]=objectToUpdate.area></td>
+                                        </tr>
+                                        <tr>
+                                            <td>specialization</td>
+                                            <td><input type="text" name="specialization" value="objectToUpdate.specialization" class="form-control" [(ngModel)]=objectToUpdate.specialization></td>
+                                        </tr>
+                                        <tr>
+                                            <td>experience</td>
+                                            <td><input type="text" name="experience" value="objectToUpdate.experience" class="form-control" [(ngModel)]=objectToUpdate.experience></td>
+                                        </tr>
+                                        <tr>
+                                            <td>timings</td>
+                                            <td><input type="text" name="timings" value="objectToUpdate.timings" class="form-control" [(ngModel)]=objectToUpdate.timings></td>
+                                        </tr>
+                                        <tr>
+                                            <td>about</td>
+                                            <td><input type="text" name="about" value="objectToUpdate.about" class="form-control" [(ngModel)]=objectToUpdate.about></td>
+                                        </tr>
+                                        <tr>
+                                            <td><button type="submit" class="btn btn-info">Save</button></td>
+                                        </tr>
+                                    </table>
+                        </form>
+                        </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </div>
+    

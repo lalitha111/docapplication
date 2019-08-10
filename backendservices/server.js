@@ -17,7 +17,7 @@ const patientdashboardRoutes=require('./routes/patientdashboardroutes');
 //using patientdashboardroutes
 app.use('/patientdashboard',patientdashboardRoutes)
 //importing vendordashboardroutes
-const doctordashboardRoutes=require('./routes/doctordashboardRoutes');
+const doctordashboardRoutes=require('./routes/doctordashboardroutes');
 //using vendordashboardroutes
 app.use('/doctordashboard',doctordashboardRoutes)
 //using jwtwebtoken

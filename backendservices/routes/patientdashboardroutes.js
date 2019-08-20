@@ -4,11 +4,11 @@ const initdb=require('../DBConfig').initdb
 const getdb=require('../DBConfig').getdb
 initdb();
 //importing checkAuthorization middleware
-const checkAuthrization=require('../middleware/checkAuthorization');
+const checkAuthorization=require('../middleware/checkAuthorization');
 var patientdashboardRoutes=exp.Router();
 
 //patientdashboard viewprofile get handler
-patientdashboardRoutes.get('/profile/:name',(req,res)=>{
+patientdashboardRoutes.get('/profile/:name',checkAuthorization,(req,res)=>{
     console.log("req.params",req.params);
     var dbo=getdb();
     dbo.collection('patientcollection').find({name:{$eq:req.params.name}}).toArray((err,dataArray)=>{
@@ -17,7 +17,7 @@ patientdashboardRoutes.get('/profile/:name',(req,res)=>{
         }
         else
         {
-            res.json({data:dataArray})
+            res.json({"message":dataArray})
         }
     })
 })
@@ -38,7 +38,7 @@ patientdashboardRoutes.put('/profile',(req,res)=>{
 })
 
 //get request from to view all doctors in patient dashboard
-patientdashboardRoutes.get('/viewdoctors',(req,res)=>{
+patientdashboardRoutes.get('/viewdoctors',checkAuthorization,(req,res)=>{
     dbo=getdb();
     dbo.collection('doctorcollection').find().toArray((err,dataArray)=>{
         if(err){
@@ -67,14 +67,31 @@ patientdashboardRoutes.post('/viewdoctors',(req,res)=>{
                 console.log(err)
             }
             else{
-                res.json({message:"request sent  successfully"})
+                res.json({"message":"request sent  successfully"})
             }
         })
     }
 })
 
 //get request from to view all doctors in doctor dashboard
-patientdashboardRoutes.get('/mybookings/:name',(req,res)=>{
+patientdashboardRoutes.get('/bookingstatus',checkAuthorization,(req,res)=>{
+    dbo=getdb();
+
+    dbo.collection('bookappointments').find().toArray((err,dataArray)=>{
+        
+        if(err){
+            console.log('error in saving data')
+            console.log(err)
+        }
+        else{
+                    res.json({"message":dataArray})
+                    console.log("dataArray:",dataArray);
+                }
+    })
+})
+
+//get request from to view all doctors in doctor dashboard
+patientdashboardRoutes.get('/mybookings/:name',checkAuthorization,(req,res)=>{
     dbo=getdb();
     console.log(req.params.name);
 
@@ -85,14 +102,14 @@ patientdashboardRoutes.get('/mybookings/:name',(req,res)=>{
             console.log(err)
         }
         else{
-                    res.json({message:dataArray})
+                    res.json({"message":dataArray})
                     console.log("dataArray:",dataArray);
                 }
     })
 })
 
 //Patient make payment
-patientdashboardRoutes.post('/makepayment',checkAuthrization,(req,res)=>{
+patientdashboardRoutes.post('/makepayment',(req,res)=>{
     console.log(req.body)
     var dbo=getdb();
     if (req.body.length==0)
@@ -106,14 +123,14 @@ patientdashboardRoutes.post('/makepayment',checkAuthrization,(req,res)=>{
                 console.log(err)
             }
             else{
-                res.json({message:"payment success"})
+                res.json({"message":"payment success"})
             }
         })
     }
 })
 
 //Patient payment history
-patientdashboardRoutes.get('/paymenthistory/:name',checkAuthrization,(req,res)=>{
+patientdashboardRoutes.get('/paymenthistory/:name',checkAuthorization,(req,res)=>{
     console.log("req.params:",req.params);
     var dbo=getdb();
     dbo.collection('payments').find({patientname:{$eq:req.params.name}}).toArray((err,dataArray)=>{
@@ -122,7 +139,8 @@ patientdashboardRoutes.get('/paymenthistory/:name',checkAuthrization,(req,res)=>
         }
         else
         {
-            res.json({data:dataArray})
+            res.json({"message":dataArray})
+            console.log(dataArray)
         }
     })
 })

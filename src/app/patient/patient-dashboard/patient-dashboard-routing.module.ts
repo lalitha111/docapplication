@@ -6,6 +6,7 @@ import { ViewdoctorsComponent } from './viewdoctors/viewdoctors.component';
 import { MakepaymentComponent } from './makepayment/makepayment.component';
 import { PaymenthistoryComponent } from './paymenthistory/paymenthistory.component';
 import { MybookingsComponent } from './mybookings/mybookings.component';
+import { LogoutComponent } from './logout/logout.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,10 @@ const routes: Routes = [
     {
       path: 'paymenthistory',
       component: PaymenthistoryComponent
+    },
+    {
+      path:'logout',
+      component:LogoutComponent
     }
     ]
   },

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+//import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AppComponent } from './app.component';
@@ -17,7 +17,14 @@ import { AuthorizationService } from './authorization.service';
 import { DoctorsComponent } from './doctors/doctors.component';
 import { SearchPipe } from './search.pipe';
 import { ContactusComponent } from './contactus/contactus.component';
+import { ChangepwdComponent } from './changepwd/changepwd.component';
+import { ResetpwdComponent } from './resetpwd/resetpwd.component';
+import { OtpComponent } from './otp/otp.component';
+import { SampleComponent } from './sample/sample.component';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { ControlMessagesComponent } from './control-messages.component';
 
 @NgModule({
   declarations: [
@@ -31,13 +38,19 @@ import { ContactusComponent } from './contactus/contactus.component';
     DoctorregistrationComponent,
     DoctorsComponent,
     SearchPipe,
-    ContactusComponent
-  ],
+    ContactusComponent,
+    ChangepwdComponent,
+    ResetpwdComponent,
+    OtpComponent,
+    SampleComponent,
+    ControlMessagesComponent
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    ReactiveFormsModule,
     PatientModule,
     DoctorModule
   ],

@@ -100,8 +100,8 @@ userRoutes.post('/register/patient',(req,res,next)=>{
             console.log("Unique Value");    
         }
         else {
-            res.json({message:"Duplicate Username"})
-            console.log("Duplicate Username");
+            res.json({message:"Duplicate name"})
+            console.log("Duplicate name");
            
         }
     
@@ -115,6 +115,13 @@ userRoutes.post('/register/patient',(req,res,next)=>{
 userRoutes.post('/register/doctor',(req,res,next)=>{
     console.log(req.body);
     dbo=getdb();
+    if(req.body.name==""){
+        res.json({"message":"empty name"})
+        console.log("empty name")
+    }
+    else{
+
+    
     dbo.collection("doctorcollection").find({duname:{$eq:req.body.duname}}).toArray((err,result)=>
     
     {
@@ -127,7 +134,10 @@ userRoutes.post('/register/doctor',(req,res,next)=>{
                 }
                 else{
                     //replace the plain text with hashed password
+                    
+                    
                     req.body.password=hashedpwd;
+                    
                     dbo.collection("doctorcollection").insertOne(req.body,(err,success)=>{
                         if(err)
                         {
@@ -144,12 +154,13 @@ userRoutes.post('/register/doctor',(req,res,next)=>{
             
         }
         else {
-            res.json({"message":"Duplicate Username"})
-            console.log("Duplicate Username");
+            res.json({"message":"Duplicate name"})
+            console.log("Duplicate name");
            
         }
     
     })
+}
 })
 
         
@@ -158,7 +169,7 @@ userRoutes.post('/register/doctor',(req,res,next)=>{
 userRoutes.post('/login',(req,res,next)=>{
     console.log(req.body)
     var dbo=getdb();
-        if(req.body.usertype==='patient')
+        if(req.body.usertype==='patient')           
         {
 
             dbo.collection("patientcollection").find({name:{$eq:req.body.name}}).toArray((err,data)=>{
@@ -176,9 +187,9 @@ userRoutes.post('/login',(req,res,next)=>{
                             if (result==true)
                             {
                                 //intailizing varaible
-                                currentUserName=data[0].name
+                                currentname=data[0].name
                                 //create and send JSON token
-                                const signedToken=jwt.sign({name:data[0].name},secret,{expiresIn: "7d"})
+                                const signedToken=jwt.sign({name:data[0].name},secret,{expiresIn: "1d"})
                                 res.json({message:'patient logged in successfully',userdata:data,token:signedToken})
                             }
                             else{
@@ -190,7 +201,7 @@ userRoutes.post('/login',(req,res,next)=>{
                 }
             })
         }
-        else{
+        else if(req.body.usertype==='doctor')   {
             dbo.collection("doctorcollection").find({name:{$eq:req.body.name}}).toArray((err,data)=>{
                 if(err){
                    next(err)
@@ -206,7 +217,7 @@ userRoutes.post('/login',(req,res,next)=>{
                         if (result==true)
                         {
                             //intailizing varaible
-                            currentUserName=data[0].name
+                            currentname=data[0].name
                             //create and send JSON token
                             const signedToken=jwt.sign({name:data[0].name},secret,{expiresIn: "7d"})
                             res.json({message:'doctor logged in successfully',userdata:data,token:signedToken})
@@ -220,10 +231,13 @@ userRoutes.post('/login',(req,res,next)=>{
                 }
             })
         }
+        else{
+            res.json({message:"Select either Patient or Doctor"})
+        }
         
 })
 
-userRoutes.get('/doctors',(req,res)=>{
+userRoutes.get('/doctors',(req,res,next)=>{
     dbo=getdb();
     dbo.collection('doctorcollection').find().toArray((err,dataArray)=>{
         if(err){
@@ -236,8 +250,137 @@ userRoutes.get('/doctors',(req,res)=>{
                 }
     })
 })
-//error handling callback function
-userRoutes.use((err,req,res,next)=>{
-    console.log(err)
+
+
+const accountSid = 'ACa186cd6223e30ccd47f42c2a6aaf4bf4';
+const authToken = '8812fe026480c3726389c876579d2325';
+const client = require('twilio')(accountSid, authToken);
+
+
+userRoutes.post('/resetpwd',(req,res,next)=>{
+    dbo=getdb();
+    console.log(req.body)
+    // dbo.collection("patientcollection").find({name:{$eq:req.body.name}}).toArray((err,data)=>{
+    dbo.collection('patientcollection').find({name:{$eq:req.body.name}}).toArray((err,userArray)=>{
+        if(err){
+            next(err)
+            console.log(error)
+        }
+        else{
+            console.log(userArray)
+            if(userArray.length===0){
+                res.json({message:"user not found"})
+            }
+            else{
+                jwt.sign({name:userArray[0].name},secret,{expiresIn:10000},(err,token)=>{
+                    if(err){
+                     next(err);
+                    }
+                    else{
+                        var OTP=Math.floor(Math.random()*99999)+11111;
+                        console.log(OTP)
+                        
+                        client.messages.create({
+                            body: 'hiii, your project works',
+                            from: '+12029155184',
+                            to: '+918790052438'
+  
+                        })
+                        .then((message) => {
+                            dbo.collection('OTPCollection').insertOne({
+                                OTP:OTP,
+                                name:userArray[0].name,
+                                OTPGeneratedTime:new Date().getTime()+15000
+                        },(err,success)=>{
+                            if(err){
+                                next(err)
+                            }
+                            else{                                        
+                                res.json({"message":"user found",
+                                    "token":token,
+                                    "OTP":OTP,
+                                    "name":userArray[0].name
+                                })
+                            }
+                        })
+                        });
+
+                    }
+                    
+                })
+            }
+        }
+    })
 })
+
+//verify OTP
+userRoutes.post('/verifyotp',(req,res,next)=>{
+    console.log(req.body)
+    console.log(new Date().getTime())
+    var currentTime=new Date().getTime()
+    dbc.collection('OTPCollection').find({"OTP":req.body.OTP}).toArray((err,OTPArray)=>{
+        if(err){
+            next(err)
+        }
+        else if(OTPArray.length===0){
+            res.json({"message":"invalidOTP"})
+        }
+        else if(OTPArray[0].OTPGeneratedTime < req.body.currentTime){
+            res.json({"message":"invalidOTP"})
+        }
+        else{
+            
+            dbc.collection('OTPCollection').deleteOne({OTP:req.body.OTP},(err,success)=>{
+                if(err){
+                    next(err);
+                }
+                else{
+                    console.log(OTPArray)
+                    res.json({"message":"verifiedOTP"})
+                }
+            })
+        }
+    })
+})
+
+
+
+//changing password
+userRoutes.put('/changepassword',(req,res,next)=>{
+    console.log(req.body)
+    bcrypt.hash(req.body.password,6,(err,hashedPassword)=>{
+        if (err) {
+            next(err)
+        } else {
+            console.log(hashedPassword)
+            collectionObject.updateOne({name:req.body.name},{$set:{
+                password:hashedPassword
+            }},(err,success)=>{
+                if(err){
+                    next(err)
+                }
+                else{
+                    res.json({"message":"password changed"})
+                }
+            }) 
+        }
+    })
+    
+})
+
+
+userRoutes.get('*', (req, res, next)=> {
+    let err = new Error('Page Not Found');
+    err.statusCode = 404;
+    next(err);
+  });
+
+  userRoutes.use((err, req, res, next)=>{
+    res.status(404).json({errorCode:404, errorMessage:"requested resources not found"});
+})
+
+//error handling callback function
+// userRoutes.use((err,req,res,next)=>{
+//     console.log(err)
+// })
 module.exports=userRoutes

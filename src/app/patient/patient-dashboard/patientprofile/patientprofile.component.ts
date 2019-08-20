@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TransferService } from 'src/app/transfer.service';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-patientprofile',
@@ -9,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class PatientprofileComponent implements OnInit {
 
-  constructor(private ts:TransferService,private hc:HttpClient) { }
+  constructor(private ts:TransferService,private hc:HttpClient, private router:Router) { }
   currentUser:any;
   b:boolean=true;
   objectToUpdate:any;
@@ -19,7 +20,17 @@ currectUser=this.ts.currentUsername[0].name;
   ngOnInit() {
     //console.log(this.register.currentUsername)
     this.hc.get(`patientdashboard/profile/${this.currectUser}`).subscribe(res=>{
-      this.currentUser=res['data']}
+      if(res['message']=="unauthorized access")
+      {
+        alert(res['message']);
+        console.log(res['message'])
+        this.router.navigate(['/nav/login'])
+      }
+      else{
+        this.currentUser=res['message'];
+      }
+      
+    }
     )}
 
     edit(data)

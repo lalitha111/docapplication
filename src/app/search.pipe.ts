@@ -10,7 +10,7 @@ export class SearchPipe implements PipeTransform {
       return data;
     }
     return data.filter(i=>
-      i.name.toLowerCase().indexOf(searchterm.toLocaleLowerCase())!=-1||
+        i.name.toLowerCase().indexOf(searchterm.toLocaleLowerCase())!=-1||
         i.area.toLowerCase().indexOf(searchterm.toLocaleLowerCase())!=-1||
         i.specialization.toLowerCase().indexOf(searchterm.toLocaleLowerCase())!=-1
   

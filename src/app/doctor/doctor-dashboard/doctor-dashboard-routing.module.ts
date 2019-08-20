@@ -5,6 +5,7 @@ import { DoctorprofileComponent } from './doctorprofile/doctorprofile.component'
 import { ViewrequestsComponent } from './viewrequests/viewrequests.component';
 import { PaymentstatusComponent } from './paymentstatus/paymentstatus.component';
 import { MyappointmentsComponent } from './myappointments/myappointments.component';
+import { LogoutComponent } from './logout/logout.component';
 
 
 const routes: Routes = [
@@ -26,6 +27,10 @@ const routes: Routes = [
     {
       path: 'paymentstatus',
       component: PaymentstatusComponent
+    },
+    {
+      path: 'logout',
+      component: LogoutComponent
     }
     ]
   },

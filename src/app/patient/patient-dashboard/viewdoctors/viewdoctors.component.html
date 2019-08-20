@@ -8,7 +8,7 @@
                 </div>
                 <div class="col-md-3"></div>
             </div>
-    <table class="table">
+    <table class="table table-responsive table-bordered">
             
         <thead class="bg-info text-white">
             <th>Doctor Name</th>
@@ -28,13 +28,13 @@
                 <td>{{obj.experience}}</td>
                 <td>{{obj.specialization}}</td>
                 <td>{{obj.area}}</td>
-                <td>{{obj.timings}}</td>  
+                <td>{{obj.timings}}</td>   
     
                 
             <td>
-                <button class="btn btn-info" type="submit" *ngIf="!(currentUser[0].name==obj.patientname)" (click)="changeStatus(obj)">{{b?"bookappointment":"request pending"}}</button>
-                <!--<button class="btn btn-primary" *ngIf="check " (click)="requestStatus(x)">check request </button>-->
-                <p *ngIf='currentUser[0].name==obj.patientname'>{{obj.reqstatus}}</p>
+                <button class="btn btn-info" type="submit" *ngIf="!(currentUser[0].name==obj.patients.indexOf())" (click)="changeStatus(obj)">{{btn}}</button>
+                 <!--<button class="btn btn-primary" *ngIf="check " (click)="requestStatus(x)">check request </button>-->
+                <p *ngIf='currentUser[0].name==obj.patients.indexOf()'>success</p>
             </td>
         </tr>
     

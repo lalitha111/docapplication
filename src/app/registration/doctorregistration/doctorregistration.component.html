@@ -1,4 +1,165 @@
+
 <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 bg-info">
+        
+        <div class="container">
+                <h3 class="text-center mt-3 mb-4">Doctor Registration</h3>
+        <form [formGroup]="registerForm" (ngSubmit)="doctorReg()">
+        
+        <div class="form-group">
+            <label>User Name</label>
+            <input type="text" formControlName="name" class="form-control" minlength="4" maxlength="11" pattern="[A-Za-z]{1}[A-Za-z0-9]{3,}" autofocus [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+                    <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                        <div *ngIf="f.name.errors.required">User Name is required</div>
+                        <div *ngIf="f.name.errors.minlength">User Name must be at least 4 characters</div>
+                        <div *ngIf="f.name.errors.maxlength">User Name must not have more than 11 characters</div>
+                        <div *ngIf="f.name.errors.pattern">First letter of User Name must start with character</div>
+                    </div>
+        </div>
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" formControlName="duname" class="form-control" pattern="[A-Za-z]{1,}" [ngClass]="{ 'is-invalid': submitted && f.duname.errors }" />
+                    <div *ngIf="submitted && f.duname.errors" class="invalid-feedback">
+                        <div *ngIf="f.duname.errors.required">Name is required</div>
+                        <div *ngIf="f.duname.errors.pattern">Name must only contains characters</div>
+                        
+                    </div>
+        </div>
+        
+        <div class="form-group">
+            <label>Email</label>
+            <input type="text" formControlName="email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                <div *ngIf="f.email.errors.required">Email is required</div>
+                <div *ngIf="f.email.errors.pattern">Email must be a valid email address</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                <div *ngIf="f.password.errors.required">Password is required</div>
+                <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+            </div>
+        </div>
+        <div class="form-group">
+                <label>Mobile Number</label>
+                <input type="tel" formControlName="mobileno" minlength="6" maxlength="10" pattern="[6-9]{1}[0-9]{9}" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.mobileno.errors }" />
+                <div *ngIf="submitted && f.mobileno.errors" class="invalid-feedback">
+                    <div *ngIf="f.mobileno.errors.required">Mobile Number is required</div>
+                    <div *ngIf="f.mobileno.errors.minlength">Mobile Number must be at least 10 numbers</div>
+                    <div *ngIf="f.mobileno.errors.pattern">Mobile Number must start b/w [6-9]</div>
+                </div>
+            </div>
+        <div class="form-group">
+            <label>Date of Birth</label>
+            <input type="date" formControlName="date" min="1998-01-01" max="1998-01-01" class="form-control" [ngClass]="" />
+            
+        </div>
+        <div class="form-group">
+                <label>Gender</label>
+                <div class="form-check">
+                    <label class="form-check-label" for="m">
+                    <input type="radio" formControlName="gender" id="m" class="form-check-input"  value="Male" [ngClass]="">Male
+                </label>
+                </div>
+                <div class="form-check">
+                        <label class="form-check-label" for="f">
+                        <input type="radio" formControlName="gender" id="f" class="form-check-input" value="Female" [ngClass]="">Female
+                    </label>
+                    </div>
+                    <div class="form-check">
+                            <label class="form-check-label" for="o">
+                            <input type="radio" formControlName="gender" id="o" class="form-check-input" value="Others" [ngClass]="">Others
+                        </label>
+                        </div>
+                </div>
+        <div class="form-group">
+            <label>Area</label>
+            <input type="text" placeholder="Enter Area Name" list="arealist" formControlName="area" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.area.errors }">
+            <datalist id="arealist">
+                <option [value]="area" *ngFor="let area of areas">{{area}}</option>
+                <!-- <option value="Gachibowli">Gachibowli</option>
+                          <option value="Shamshabad">Shamshabad</option>
+                          <option value="Kukatpally">Kukatpally</option>
+                          <option value="Mallapur">Mallapur</option>
+                          <option value="Hi Tech City">Hi Tech City</option>
+                          <option value="Habsiguda">Habsiguda</option>
+                          <option value="Jubilee Hills">Jubilee Hills</option>
+                          <option value="Secunderabad">Secunderabad</option>
+                          <option value="Banjara Hills">Banjara Hills</option>
+                          <option value="Manikonda"> Manikonda</option> -->
+            </datalist>
+            <div *ngIf="submitted && f.area.errors" class="invalid-feedback">
+                    <div *ngIf="f.area.errors.required">Area is required</div>
+                </div>
+        </div>
+        
+        <div class="form-group">
+                <label for="s">Specialization</label>
+                
+                <input type="text" placeholder="Enter Your Specialization" list="speclist" formControlName="specialization" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.specialization.errors }">
+                <datalist id="speclist">
+                        <option value="medicine">Medicine</option>
+                        <option value="pediatrics">Pediatrics</option>
+                        <option value="cardiology">Cardiology</option>
+                        <option value="neurosurgery">Neurosurgery</option>
+                        <option value="orthopedics">Orthopedics</option>
+                </datalist>
+                    <div *ngIf="submitted && f.specialization.errors" class="invalid-feedback">
+                            <div *ngIf="f.specialization.errors.required">specialization is required</div>
+                        </div>
+                </div>
+                <div class="form-group">
+                        <label>Experience</label>
+                        <input type="number" formControlName="experience" min="0" max="70" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.experience.errors }" />
+                        <div *ngIf="submitted && f.experience.errors" class="invalid-feedback">
+                            <div *ngIf="f.experience.errors.required">Experience is required</div>
+                        </div>
+                    </div>
+                
+                <div class="form-group">
+                    <label for="time">Timings</label>
+                    <div class="row">
+                        <div class="col-md-6">
+                                <input type="time" formControlName="timings" min="09:00" max="18:59" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.timings.errors }" />
+                            <small>Opening Time</small>
+                            <div *ngIf="submitted && f.timings.errors" class="invalid-feedback">
+                                    <div *ngIf="f.timings.errors.required">Opening Time is required</div>
+                                </div>
+                        </div>
+                        <div class="col-md-6">
+                                <input type="time" formControlName="timingsc" min="20:00" max="23:59" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.timingsc.errors }" />
+                            <small>Closing Time</small>
+                            <div *ngIf="submitted && f.timingsc.errors" class="invalid-feedback">
+                                    <div *ngIf="f.timingsc.errors.required">Closing Time is required</div>
+                                </div>
+                        </div>
+                    </div>
+                    
+                </div>
+        
+            <div class="form-group">
+                <label for="a">About Me</label>
+                <textarea rows="5" formControlName="about" class="form-control" [ngClass]=""></textarea>
+            </div>
+        
+        <div class="text-center">
+        <button class="btn btn-success">Submit</button>
+        </div>
+        </form>
+        </div>
+        <div class="col-md-3"></div>
+        </div>
+        </div>
+        
+        
+    
+    
+
+<!-- <div class="container">
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6 bg-info">
@@ -174,4 +335,4 @@
                 </div>
                 </div>
                 
-                
+                 -->

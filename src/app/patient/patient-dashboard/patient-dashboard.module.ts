@@ -11,9 +11,10 @@ import { FormsModule } from '@angular/forms';
 import { MakepaymentComponent } from './makepayment/makepayment.component';
 import { PaymenthistoryComponent } from './paymenthistory/paymenthistory.component';
 import { MybookingsComponent } from './mybookings/mybookings.component';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
-  declarations: [PatientDashboardComponent, PatientprofileComponent, ViewdoctorsComponent, SearchPipe, MakepaymentComponent, PaymenthistoryComponent, MybookingsComponent],
+  declarations: [PatientDashboardComponent, PatientprofileComponent, ViewdoctorsComponent, SearchPipe, MakepaymentComponent, PaymenthistoryComponent, MybookingsComponent, LogoutComponent],
   imports: [
     CommonModule,
     PatientDashboardRoutingModule,

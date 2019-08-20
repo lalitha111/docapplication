@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { TransferService } from 'src/app/transfer.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-viewdoctors',
@@ -17,7 +18,8 @@ export class ViewdoctorsComponent implements OnInit {
   currentUser:any[];
   searchTerm:string;
   searchWord:string;
-  constructor(private hc:HttpClient,private ts:TransferService) { }
+  btn:string="Book Appointment";
+  constructor(private hc:HttpClient,private ts:TransferService,private router:Router) { }
   
   ngOnInit() {
     // this.status=this.s.status;
@@ -30,10 +32,23 @@ export class ViewdoctorsComponent implements OnInit {
     
     this.hc.get("/patientdashboard/viewdoctors").subscribe(
       res=>{
-        this.list=res['message']
+        
+        
+        if(res['message']=="unauthorized access")
+      {
+        alert(res['message']);
+        console.log(res['message'])
+        this.router.navigate(['/nav/login'])
+      }
+      else{
         console.log(this.list)
+
+        this.list=res['message']
+      }
       })
   }
+
+
   ngOnChanges()
   {
   }
@@ -61,6 +76,7 @@ export class ViewdoctorsComponent implements OnInit {
     this.hc.post('/patientdashboard/viewdoctors',bookappointment).subscribe(res=>{
         alert(res['message'])
       }
+      
       
     )
     // this.b=false;

@@ -4,11 +4,11 @@ const initdb=require('../DBConfig').initdb
 const getdb=require('../DBConfig').getdb
 initdb();
 //importing checkAuthorization middleware
-//const checkAuthrization=require('../middleware/checkAuthorization');
+const checkAuthorization=require('../middleware/checkAuthorization');
 var doctordashboardRoutes=exp.Router();
 
 //doctordashboard viewprofile get handler
-doctordashboardRoutes.get('/profile/:name',(req,res)=>{
+doctordashboardRoutes.get('/profile/:name',checkAuthorization,(req,res)=>{
     console.log("req.params",req.params);
     var dbo=getdb();
     dbo.collection('doctorcollection').find({name:{$eq:req.params.name}}).toArray((err,dataArray)=>{
@@ -17,7 +17,7 @@ doctordashboardRoutes.get('/profile/:name',(req,res)=>{
         }
         else
         {
-            res.json({data:dataArray})
+            res.json({"message":dataArray})
         }
     })
 })
@@ -38,7 +38,7 @@ doctordashboardRoutes.put('/profile',(req,res)=>{
 })
 
 //get request from to view all doctors in doctor dashboard
-doctordashboardRoutes.get('/viewrequests/:name',(req,res)=>{
+doctordashboardRoutes.get('/viewrequests/:name',checkAuthorization,(req,res)=>{
     dbo=getdb();
     console.log(req.params.name);
 
@@ -49,14 +49,14 @@ doctordashboardRoutes.get('/viewrequests/:name',(req,res)=>{
             console.log(err)
         }
         else{
-                    res.json({message:dataArray})
+                    res.json({"message":dataArray})
                     console.log("dataArray:",dataArray);
                 }
     })
 })
 
 //get request from to view all doctors in doctor dashboard
-doctordashboardRoutes.get('/myappointments/:name',(req,res)=>{
+doctordashboardRoutes.get('/myappointments/:name',checkAuthorization,(req,res)=>{
     dbo=getdb();
     console.log(req.params.name);
 
@@ -67,7 +67,7 @@ doctordashboardRoutes.get('/myappointments/:name',(req,res)=>{
             console.log(err)
         }
         else{
-                    res.json({message:dataArray})
+                    res.json({"message":dataArray})
                     console.log("dataArray:",dataArray);
                 }
     })
@@ -75,7 +75,7 @@ doctordashboardRoutes.get('/myappointments/:name',(req,res)=>{
 
 
 //Patient payment history
-doctordashboardRoutes.get('/paymentstatus/:name',(req,res)=>{
+doctordashboardRoutes.get('/paymentstatus/:name',checkAuthorization,(req,res)=>{
     console.log("req.params:",req.params);
     var dbo=getdb();
     dbo.collection('payments').find({name:{$eq:req.params.name}}).toArray((err,dataArray)=>{
@@ -84,7 +84,7 @@ doctordashboardRoutes.get('/paymentstatus/:name',(req,res)=>{
         }
         else
         {
-            res.json({data:dataArray})
+            res.json({"message":dataArray})
         }
     })
 })
@@ -143,20 +143,49 @@ doctordashboardRoutes.put('/viewrequests',(req,res)=>{
 })
 
 //Patient make payment
+
+
+
+
 doctordashboardRoutes.post('/viewrequests',(req,res)=>{
-    console.log(req.body)
+    console.log("req.body:",req.body)
     var dbo=getdb();
     dbo.collection("acceptedappointments").insertOne(req.body,(err,success)=>{
         if(err){
             console.log('error in saving data')
-            console.log(err)
+            next(err)
         }
         else{
-            res.json({message:"request accepted ok"})
+           
+            dbo.collection("bookappointments").findOneAndDelete({$and:[{patientname:{$eq:req.body.patientname}},{doctorname:{$eq:req.body.doctorname}}]},(err,result)=>{
+                if(err)
+                {
+                    next(err);
+                }
+                else{
+                    console.log("Deleted:", result);
+                    res.json({'message':"request accepted ok"});
+                    
+                }
+            })
         }
     })
 })
 
+
+doctordashboardRoutes.put('/viewdoctors',(req,res,next)=>{
+    console.log("put view doctors:",req.body)
+    dbo=getdb();
+    dbo.collection("doctorcollection").updateOne({name:{$eq:req.body.doctorname}},{$addToSet:{patients:{$each:[req.body.patientname]}}}),((err,success)=>{
+        if(err)
+        {
+            next(err)
+        }
+        else{
+            res.json({'message':'updated'})
+        }
+    })
+})
 
 
 module.exports=doctordashboardRoutes

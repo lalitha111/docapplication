@@ -8,9 +8,10 @@ import { ViewrequestsComponent } from './viewrequests/viewrequests.component';
 import { SearchPipe } from './search.pipe';
 import { PaymentstatusComponent } from './paymentstatus/paymentstatus.component';
 import { MyappointmentsComponent } from './myappointments/myappointments.component';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
-  declarations: [DoctorDashboardComponent, DoctorprofileComponent, ViewrequestsComponent, SearchPipe, PaymentstatusComponent, MyappointmentsComponent],
+  declarations: [DoctorDashboardComponent, DoctorprofileComponent, ViewrequestsComponent, SearchPipe, PaymentstatusComponent, MyappointmentsComponent, LogoutComponent],
   imports: [
     CommonModule,
     DoctorDashboardRoutingModule,

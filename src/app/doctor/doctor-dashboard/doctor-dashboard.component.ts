@@ -12,10 +12,6 @@ export class DoctorDashboardComponent implements OnInit {
 
   ngOnInit() {
   }
-  logout()
-  {
-    localStorage.removeItem('idToken')
-    this.router.navigate(['nav/home'])
-  }
+  
 
 }

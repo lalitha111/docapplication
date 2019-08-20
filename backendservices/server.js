@@ -8,6 +8,7 @@ app.use(exp.static(path.join(__dirname,'../dist/docApp')));
 const bodyParser=require('body-parser')
 //using body-parser
 app.use(bodyParser.json())
+
 //importing userRoutes
 const userRoutes=require('./routes/userroutes');
 //using userRoutes

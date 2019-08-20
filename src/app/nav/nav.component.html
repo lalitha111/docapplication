@@ -1,20 +1,28 @@
 <div>
     <!-- A grey horizontal navbar that becomes vertical on small screens -->
-  <nav class="navbar navbar-expand-sm bg-dark">
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
       <a class="navbar-brand" routerLink="home">
           <img src="assets/logo.png" alt="Logo" style="width:60px;height: 40px;"><label class="text-white pl-2 h3">Book My Doctor</label>
       </a>
-    <!-- Links -->
+      <!-- Toggler/collapsibe Button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Navbar links -->
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
         <a routerLink="home" class="nav-link text-white">Home</a>
       </li>
       <li class="nav-item">
-        <a routerLink="doctors" class="nav-link text-white">Doctors</a>
-      </li>
-      <li class="nav-item">
         <a routerLink="aboutus" class="nav-link text-white">About Us</a>
       </li>
+      <li class="nav-item">
+        <a routerLink="doctors" class="nav-link text-white">Doctors</a>
+      </li>
+      
       <li class="nav-item">
           <a routerLink="contactus" class="nav-link text-white">Contact Us</a>
         </li>
@@ -43,6 +51,7 @@
       
       
     </ul>
+  </div>
   </nav>
   <router-outlet></router-outlet>
     </div>

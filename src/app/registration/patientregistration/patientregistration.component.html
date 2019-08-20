@@ -5,96 +5,83 @@
         <div class="col-md-6 bg-info">
     
     <div class="container">
-            <h3 class="text-center mt-3 mb-4">Patient Registration</h3>
-    <form #ref="ngForm" (ngSubmit)="patientReg(ref.value)">
-    <div class="form-group">
-        <label for="n">User Name</label>
-        <input type="text" name="name" id="n" #refname="ngModel" required minlength="5" class="form-control" ngModel>
-        <div *ngIf="refname.invalid&&(refname.dirty||refname.touched)" class="text-danger">
-            <div *ngIf="refname.errors.required">
-                <p>*UserName is required</p>
-            </div>
-            <div *ngIf="refname.errors.minlength">
-                <p>*Name must be atleast 4 chars long</p>
-            </div>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="n">Name</label>
-        <input type="text" name="puname" id="pun" #refpuname="ngModel" required minlength="5" class="form-control" ngModel>
-        <div *ngIf="refpuname.invalid&&(refpuname.dirty||refpuname.touched)" class="text-danger">
-            <div *ngIf="refpuname.errors.required">
-                <p>*Name is required</p>
-            </div>
-            <div *ngIf="refpuname.errors.minlength">
-                <p>*Name must be atleast 4 chars long</p>
-            </div>
-        </div>
-    </div>
+            <h3 class="text-center mt-3 mb-4">Doctor Registration</h3>
+    <form [formGroup]="registerForm" (ngSubmit)="patientReg()">
     
     <div class="form-group">
-        <label for="e">Email-Id</label>
-        <input type="email" name="email" id="e" class="form-control" #refemail="ngModel" required ngModel>
-        <div *ngIf="refemail.invalid&&(refemail.dirty||refemail.touched)" class="text-danger">
-            <div *ngIf="refemail.errors.required">
-                <p>*Email is required</p>
-            </div>
-        </div>
-    
-    </div>
-    <div class="form-group">
-        <label for="p">Password</label>
-        <input type="password" name="password" id="p" class="form-control" #refpwd="ngModel" required minlength="6" ngModel>
-        <div *ngIf="refpwd.invalid&&(refpwd.dirty||refpwd.touched)" class="text-danger">
-            <div *ngIf="refpwd.errors.required">
-                <p>*Password is required</p>
-            </div>
-            <div *ngIf="refpwd.errors.minlength">
-                <p>*Password must be atleast 6 chars long</p>
-            </div>
-        </div>
-    
-    </div>
-    <div class="form-group">
-            <label for="mn">Mobile Number</label>
-            <input type="text" name="mobileno" id="mn" class="form-control" #refnum="ngModel" required ngModel>
-            
-            <div *ngIf="refnum.invalid&&(refnum.dirty||refnum.touched)" class="text-danger">
-                <div *ngIf="refnum.errors.required">
-                    <p>Mobile Number is required</p>
-                    <p>max 10 characters 0-9</p>
+        <label>User Name</label>
+        <input type="text" formControlName="name" class="form-control" minlength="4" maxlength="11" pattern="[A-Za-z]{1}[A-Za-z0-9]{3,}" autofocus [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+                <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                    <div *ngIf="f.name.errors.required">User Name is required</div>
+                    <div *ngIf="f.name.errors.minlength">User Name must be at least 4 characters</div>
+                    <div *ngIf="f.name.errors.maxlength">User Name must not have more than 11 characters</div>
+                    <div *ngIf="f.name.errors.pattern">First letter of User Name must start with character</div>
                 </div>
-            </div>
     </div>
     <div class="form-group">
-        <label for="d">Date Of Birth</label>
-        <input type="date" name="date" id="d" class="form-control" ngModel>
-    </div> 
-    <div class="form-group">
-    <label for="">Gender</label>
-    <div class="form-check">
-        <label class="form-check-label" for="m">
-        <input type="radio" name="gender" id="m" value=male class="form-check-input" ngModel>Male
-    </label>
+        <label>Name</label>
+        <input type="text" formControlName="puname" class="form-control" pattern="[A-Za-z]{1,}" [ngClass]="{ 'is-invalid': submitted && f.puname.errors }" />
+                <div *ngIf="submitted && f.puname.errors" class="invalid-feedback">
+                    <div *ngIf="f.puname.errors.required">Name is required</div>
+                    <div *ngIf="f.puname.errors.pattern">Name must only contains characters</div>
+                    
+                </div>
     </div>
-    <div class="form-check">
-            <label class="form-check-label" for="f">
-            <input type="radio" name="gender" id="f" value=female class="form-check-input" ngModel>Female
-        </label>
+    
+    <div class="form-group">
+        <label>Email</label>
+        <input type="text" formControlName="email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+            <div *ngIf="f.email.errors.required">Email is required</div>
+            <div *ngIf="f.email.errors.pattern">Email must be a valid email address</div>
         </div>
-        <div class="form-check">
-                <label class="form-check-label" for="o">
-                <input type="radio" name="gender" id="o" value=others class="form-check-input" ngModel>Others
+    </div>
+    <div class="form-group">
+        <label>Password</label>
+        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">Password is required</div>
+            <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+        </div>
+    </div>
+    <div class="form-group">
+            <label>Mobile Number</label>
+            <input type="tel" formControlName="mobileno" minlength="6" maxlength="10" pattern="[6-9]{1}[0-9]{9}" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.mobileno.errors }" />
+            <div *ngIf="submitted && f.mobileno.errors" class="invalid-feedback">
+                <div *ngIf="f.mobileno.errors.required">Mobile Number is required</div>
+                <div *ngIf="f.mobileno.errors.minlength">Mobile Number must be at least 10 numbers</div>
+                <div *ngIf="f.mobileno.errors.pattern">Mobile Number must start b/w [6-9]</div>
+            </div>
+        </div>
+    <div class="form-group">
+        <label>Date of Birth</label>
+        <input type="date" formControlName="date" min="1998-01-01" max="1998-01-01" class="form-control" [ngClass]="" />
+        
+    </div>
+    <div class="form-group">
+            <label>Gender</label>
+            <div class="form-check">
+                <label class="form-check-label" for="m">
+                <input type="radio" formControlName="gender" id="m" class="form-check-input"  value="Male" [ngClass]="">Male
             </label>
             </div>
-    </div>
-    
+            <div class="form-check">
+                    <label class="form-check-label" for="f">
+                    <input type="radio" formControlName="gender" id="f" class="form-check-input" value="Female" [ngClass]="">Female
+                </label>
+                </div>
+                <div class="form-check">
+                        <label class="form-check-label" for="o">
+                        <input type="radio" formControlName="gender" id="o" class="form-check-input" value="Others" [ngClass]="">Others
+                    </label>
+                    </div>
+            </div>
     <div class="form-group">
-    <label for="area">Area</label>
-    <div class="form-group">
-        <select name="area" id="area" #refarea="ngModel" class="form-control" required ngModel>
-            <option value="" disabled="disabled" selected>select</option>
-            <option value="Gachibowli">Gachibowli</option>
+        <label>Area</label>
+        <input type="text" placeholder="Enter Area Name" list="arealist" formControlName="area" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.area.errors }">
+        <datalist id="arealist">
+            <option [value]="area" *ngFor="let area of areas">{{area}}</option>
+            <!-- <option value="Gachibowli">Gachibowli</option>
                       <option value="Shamshabad">Shamshabad</option>
                       <option value="Kukatpally">Kukatpally</option>
                       <option value="Mallapur">Mallapur</option>
@@ -103,16 +90,14 @@
                       <option value="Jubilee Hills">Jubilee Hills</option>
                       <option value="Secunderabad">Secunderabad</option>
                       <option value="Banjara Hills">Banjara Hills</option>
-                      <option value="Manikonda"> Manikonda</option>
-        </select>
-        <div *ngIf="refarea.invalid&&(refarea.dirty||refarea.touched)" class="text-danger">
-            <div *ngIf="refarea.errors.required">
-                <p>Area is required</p>
+                      <option value="Manikonda"> Manikonda</option> -->
+        </datalist>
+        <div *ngIf="submitted && f.area.errors" class="invalid-feedback">
+                <div *ngIf="f.area.errors.required">Area is required</div>
             </div>
-        </div>
     </div>
     
-    </div>
+    
     <div class="text-center">
     <button class="btn btn-success">Submit</button>
     </div>
@@ -122,5 +107,3 @@
     </div>
     </div>
     
-    
-

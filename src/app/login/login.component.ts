@@ -49,6 +49,11 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/doctordashboard/profile']);
 
     }
+    
+    else if(res["message"]=='Select either Patient or Doctor')
+    {
+      alert('Select either Patient or Doctor')
+    }
 
 })
 }

@@ -1,4 +1,3 @@
-
 const exp=require('express')
 const app=exp();
 //installing and importing path
@@ -9,9 +8,6 @@ app.use(exp.static(path.join(__dirname,'../dist/docApp')));
 const bodyParser=require('body-parser')
 //using body-parser
 app.use(bodyParser.json())
-
-var compression = require('compression');
-app.use(compression())
 
 //importing userRoutes
 const userRoutes=require('./routes/userroutes');

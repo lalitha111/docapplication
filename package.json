@@ -21,7 +21,7 @@
     "@angular/platform-browser-dynamic": "~8.0.1",
     "@angular/router": "~8.0.1",
     "bcrypt": "^3.0.6",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "http": "0.0.0",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.3.0-beta2",
